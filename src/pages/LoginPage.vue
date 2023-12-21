@@ -1,3 +1,9 @@
 <template>
-    <h1>LOGIN</h1>
+	<div class="section-login">
+		<v-card class="mx-auto" width="400" prepend-icon="mdi-home">
+			<template v-slot:title> This is a title </template>
+
+			<v-card-text> This is content </v-card-text>
+		</v-card>
+	</div>
 </template>
