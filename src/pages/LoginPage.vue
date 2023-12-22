@@ -37,6 +37,10 @@
 				</div>
 			</v-card>
 		</div>
+		<base-snackbar
+			v-model="snackbar.status"
+			:color="snackbar.color"
+			:message="snackbar.message"></base-snackbar>
 	</v-app>
 </template>
 
@@ -47,6 +51,11 @@ export default {
 			username: '',
 			password: '',
 			loading: false,
+			snackbar: {
+				status: false,
+				message: 'asd',
+				color: '',
+			},
 			rules: [
 				(value) => {
 					if (value) return true;
@@ -59,9 +68,12 @@ export default {
 	methods: {
 		submitLogin() {
 			this.loading = true;
-            setTimeout(() => {
-                this.loading = false;
-            }, 2500);
+			setTimeout(() => {
+				this.loading = false;
+				this.snackbar.status = true;
+				this.snackbar.message = 'Gagaajasjk!!';
+				this.snackbar.color = 'red';
+			}, 2500);
 		},
 	},
 };
