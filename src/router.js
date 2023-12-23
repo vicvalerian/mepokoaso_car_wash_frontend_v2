@@ -2,6 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from './views/HomeView.vue';
 import LoginPage from './pages/LoginPage.vue';
 
+function importComponent(path) {
+	return () => import(`./components/${path}.vue`);
+}
+
+function importPage(path) {
+	return () => import(`./pages/${path}.vue`);
+}
+
 const routes = [
 	{
 		path: '/',
@@ -10,8 +18,21 @@ const routes = [
 	},
 	{
 		path: '/login',
-		name: 'Mepokoaso Car Wash &mdash Admin',
 		component: LoginPage,
+	},
+	{
+		path: '',
+		component: importComponent('DashboardLayout'),
+		children: [
+			{
+				path: '/dashboard',
+				component: importPage('dashboard/DashboardPage'),
+			},
+			{
+				path: '/jabatan',
+				component: importPage('jabatan/ListJabatan'),
+			},
+		],
 	},
 	{
 		path: '/about',

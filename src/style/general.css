@@ -18,7 +18,9 @@ Paragraph default: 1.6
 Large: 1.8
 
 - Letter spacing:
-0.5px
+-0.5px
+-0.05px
+0.01px
 0.75px
 
 --- 02 COLORS
@@ -73,3 +75,6 @@ body {
 /* ************************** */
 /* GENERAL REUSABLE COMPONENT */
 /* ************************** */
+.pages--container {
+	padding: 1.6rem;
+}
