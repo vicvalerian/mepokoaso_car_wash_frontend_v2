@@ -63,7 +63,7 @@ export default {
 .link-item {
 	display: flex;
 	align-items: center;
-	justify-content: start;
+	justify-content: flex-start;
 	column-gap: 1.6rem;
 }
 
