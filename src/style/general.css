@@ -29,8 +29,11 @@ Large: 1.8
 - Tints: 
 #eaeff4
 - Shades:
+#2c5883
 - Accents: 
 - Greys: 
+#333
+#555
 
 --- 03 IMAGES
 - Src: 
@@ -77,4 +80,8 @@ body {
 /* ************************** */
 .pages--container {
 	padding: 1.6rem;
+}
+
+.pages--title {
+	color: #333;
 }

@@ -53,7 +53,7 @@ export default {
 			loading: false,
 			snackbar: {
 				status: false,
-				message: 'asd',
+				message: '',
 				color: '',
 			},
 			rules: [
