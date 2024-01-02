@@ -43,7 +43,6 @@
 								:src="baseUrl + item[header.value]"
 								alt="Foto Mepokoaso CarWash"
 								width="50"
-								height="50"
 								style="object-fit: cover; margin-top: 0.5rem; margin-bottom: 0.5rem" />
 							<span v-else>Tidak Ada Gambar</span>
 						</template>

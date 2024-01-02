@@ -40,6 +40,7 @@ export default {
 				{ title: 'Dashboard', to: '/dashboard', icon: 'mdi-dots-grid' },
 				{ title: 'Jabatan', to: '/jabatan', icon: 'mdi-badge-account-horizontal-outline' },
 				{ title: 'Karyawan', to: '/karyawan', icon: 'mdi-account-group' },
+				{ title: 'Jenis Kendaraan', to: '/jenis-kendaraan', icon: 'mdi-car-info' },
 			],
 		};
 	},

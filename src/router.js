@@ -36,6 +36,10 @@ const routes = [
 				path: '/karyawan',
 				component: importPage('karyawan/ListKaryawan'),
 			},
+			{
+				path: '/jenis-kendaraan',
+				component: importPage('jenis-kendaraan/ListJenisKendaraan'),
+			},
 		],
 	},
 	{
