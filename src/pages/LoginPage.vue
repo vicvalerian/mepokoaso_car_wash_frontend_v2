@@ -17,6 +17,7 @@
 									rounded=""
 									variant="outlined"
 									:rules="rules"
+									v-model="username"
 									color="#316291"></v-text-field>
 								<v-text-field
 									:disabled="loading ? true : false"
@@ -25,6 +26,7 @@
 									rounded=""
 									variant="outlined"
 									:rules="rules"
+									v-model="password"
 									color="#316291"></v-text-field>
 								<v-btn variant="outlined" class="login-btn" :loading="loading" @click="submitLogin">
 									Masuk
@@ -45,6 +47,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 	data() {
 		return {
@@ -66,14 +70,39 @@ export default {
 		};
 	},
 	methods: {
-		submitLogin() {
+		async submitLogin() {
 			this.loading = true;
-			setTimeout(() => {
-				this.loading = false;
-				this.snackbar.status = true;
-				this.snackbar.message = 'Gagaajasjk!!';
-				this.snackbar.color = 'red';
-			}, 2500);
+			let data = {
+				username: this.username,
+				password: this.password,
+			};
+			try {
+				const response = await axios.post('api/login', data);
+
+				if (response.status == 200) {
+					const data = response.data;
+					let userLogin = {
+						token: data.data.token,
+						jabatan: data.data.jabatan.nama,
+					};
+
+					localStorage.setItem('userLogin', JSON.stringify(userLogin));
+
+					setTimeout(() => {
+						this.loading = false;
+						this.snackbar.status = true;
+						this.snackbar.message = 'Login Berhasil!';
+						this.snackbar.color = 'green';
+					}, 2500);
+				}
+			} catch (error) {
+				setTimeout(() => {
+					this.loading = false;
+					this.snackbar.status = true;
+					this.snackbar.message = error.response.data.message;
+					this.snackbar.color = 'red';
+				}, 2500);
+			}
 		},
 	},
 };

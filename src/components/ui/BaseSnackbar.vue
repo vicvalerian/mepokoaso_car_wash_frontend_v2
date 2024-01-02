@@ -22,11 +22,14 @@ export default {
 			default: '',
 		},
 	},
-	computed: {
-		snackbarModel: {
-			get() {
-				return this.status;
-			},
+	data() {
+		return {
+			snackbarModel: false,
+		};
+	},
+	watch: {
+		status(val) {
+			this.snackbarModel = val;
 		},
 	},
 };

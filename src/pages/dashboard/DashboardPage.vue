@@ -5,5 +5,3 @@
 		</div>
 	</v-main>
 </template>
-
-<style scoped></style>
