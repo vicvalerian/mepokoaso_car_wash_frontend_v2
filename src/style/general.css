@@ -85,3 +85,56 @@ body {
 .pages--title {
 	color: #333;
 }
+
+.page-title-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.primary--btn {
+	font-size: 0.9rem !important;
+	font-weight: 700 !important;
+	text-transform: capitalize !important;
+	letter-spacing: 0.5px !important;
+	color: #fff !important;
+	background-color: #316291 !important;
+	transition: all 0.3s !important;
+}
+
+.primary--btn:hover {
+	color: #316291 !important;
+	background-color: #fff !important;
+}
+
+.secondary--btn {
+	font-size: 0.9rem !important;
+	font-weight: 700 !important;
+	text-transform: capitalize !important;
+	letter-spacing: 0.5px !important;
+	color: #316291 !important;
+	background-color: #fcfdef !important;
+	transition: all 0.3s !important;
+}
+
+.secondary--btn:hover {
+	color: #fcfdef !important;
+	background-color: #316291 !important;
+}
+
+.dialog-confirm-title {
+	background-color: #316291 !important;
+	color: #fff !important;
+	font-size: 1.4rem !important;
+	font-weight: 700 !important;
+	letter-spacing: 0.5px !important;
+}
+
+.dialog-confirm-text {
+	font-size: 1rem !important;
+	color: #333 !important;
+	font-weight: 400 !important;
+	letter-spacing: -0.05px !important;
+	line-height: 1.2 !important;
+	
+	padding: 1rem !important;
+}
