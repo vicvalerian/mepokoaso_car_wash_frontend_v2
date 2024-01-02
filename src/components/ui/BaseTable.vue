@@ -1,92 +1,102 @@
 <template>
-	<v-form @submit.prevent="xSearch()">
-		<v-text-field
-			:placeholder="'Pencarian: (Masukkan minimal 3 kata kunci lalu tekan `Enter`)'"
-			width="50%"
-			class="pt-0"
-			v-model="keyword"
-			append-icon="search"
-			single-line
-			hide-details></v-text-field>
-	</v-form>
-	<v-data-table
-		:headers="list.headers"
-		:items="list.datas"
-		:loading="list.loading"
-		item-value="name"
-		hover>
-		<template
-			v-for="(header, index) in list.headers"
-			:key="index"
-			v-slot:[`item.${header.value}`]="{ item }">
-			<td>
-				<template v-if="header.type == 'number'">
-					{{
-						list.datas.indexOf(item) +
-						1 +
-						((list.paginate.currentPage - 1) * list.paginate.rowsPerPage || 0)
-					}}
-				</template>
-				<template v-else-if="header.type == 'image'">
-					<!-- Conditional rendering for image columns -->
-					<img
-						v-if="item[header.value]"
-						:src="item[header.value]"
-						alt="Image"
-						width="50"
-						height="50" />
-					<span v-else>No Image</span>
-				</template>
-				<template v-else-if="header.type == 'actions'">
-					<!-- Conditional rendering for action columns -->
-					<v-tooltip
-						v-for="(action, idx) in item.actions"
-						:key="idx"
-						:text="action.title"
-						location="bottom">
-						<template v-slot:activator="{ props }">
-							<v-icon v-bind="props" @click="handleActionClick(action, item)" color="#555">
-								{{ action.icon }}
-								<v-tooltip activator="parent" location="bottom">{{ action.title }}</v-tooltip>
-							</v-icon>
-						</template>
-					</v-tooltip>
-				</template>
-				<template v-else>
-					<!-- Render other column types -->
-					{{ item[header.value] }}
-				</template>
-			</td>
-		</template>
-		<template v-slot:loading>
-			<v-skeleton-loader type="table-row@10"></v-skeleton-loader>
-		</template>
-		<template v-slot:bottom>
-			<div class="pagination">
-				<span class="pagination-rowperpage"
-					>Menampilkan &nbsp;
-					<v-select
-						class="data-row-input"
-						v-model="rowsPerPage"
-						:items="rowPerPage"
-						item-value="value"
-						variant="underlined" />
-					&nbsp; data dari {{ list.paginate.from || '0' }} - {{ list.paginate.to || '0' }} dari
-					{{ list.paginate.total }}
-				</span>
-				<v-pagination
-					@prev="list.paginate.goToPrev"
-					@input="list.paginate.goToPage"
-					@next="list.paginate.goToNext"
-					v-model="currentPage"
-					:length="list.paginate.lastPage"
-					:total-visible="7"></v-pagination>
+	<v-sheet class="d-flex flex-column pa-2">
+		<div class="d-flex mb-4">
+			<v-spacer></v-spacer>
+			<v-spacer></v-spacer>
+			<div class="ms-auto flex-grow-1 flex-shrink-0" style="min-width: 100px; max-width: 100%">
+				<v-form @submit.prevent="xSearch()">
+					<v-text-field
+						:placeholder="'Masukkan minimal 3 kata kunci lalu tekan `Enter`'"
+						class="textfield--search"
+						v-model="keyword"
+						append-inner-icon="mdi-magnify"
+						variant="underlined"
+						single-line
+						hide-details></v-text-field>
+				</v-form>
 			</div>
-		</template>
-		<template v-slot:no-data>
-			<p class="no-data-text">Maaf, tidak ada data tersedia.</p>
-		</template>
-	</v-data-table>
+		</div>
+		<div class="flex-1-1-100">
+			<v-data-table
+				:headers="list.headers"
+				:items="list.datas"
+				:loading="list.loading"
+				item-value="name"
+				hover>
+				<template
+					v-for="(header, index) in list.headers"
+					:key="index"
+					v-slot:[`item.${header.value}`]="{ item }">
+					<td>
+						<template v-if="header.type == 'number'">
+							{{
+								list.datas.indexOf(item) +
+								1 +
+								((list.paginate.currentPage - 1) * list.paginate.rowsPerPage || 0)
+							}}
+						</template>
+						<template v-else-if="header.type == 'image'">
+							<!-- Conditional rendering for image columns -->
+							<img
+								v-if="item[header.value]"
+								:src="item[header.value]"
+								alt="Image"
+								width="50"
+								height="50" />
+							<span v-else>No Image</span>
+						</template>
+						<template v-else-if="header.type == 'actions'">
+							<!-- Conditional rendering for action columns -->
+							<v-tooltip
+								v-for="(action, idx) in item.actions"
+								:key="idx"
+								:text="action.title"
+								location="bottom">
+								<template v-slot:activator="{ props }">
+									<v-icon v-bind="props" @click="handleActionClick(action, item)" color="#555">
+										{{ action.icon }}
+										<v-tooltip activator="parent" location="bottom">{{ action.title }}</v-tooltip>
+									</v-icon>
+								</template>
+							</v-tooltip>
+						</template>
+						<template v-else>
+							<!-- Render other column types -->
+							{{ item[header.value] }}
+						</template>
+					</td>
+				</template>
+				<template v-slot:loading>
+					<v-skeleton-loader type="table-row@10"></v-skeleton-loader>
+				</template>
+				<template v-slot:bottom>
+					<div class="pagination">
+						<span class="pagination-rowperpage"
+							>Menampilkan &nbsp;
+							<v-select
+								class="data-row-input"
+								v-model="rowsPerPage"
+								:items="rowPerPage"
+								item-value="value"
+								variant="underlined" />
+							&nbsp; data dari {{ list.paginate.from || '0' }} - {{ list.paginate.to || '0' }} dari
+							{{ list.paginate.total }}
+						</span>
+						<v-pagination
+							@prev="list.paginate.goToPrev"
+							@input="list.paginate.goToPage"
+							@next="list.paginate.goToNext"
+							v-model="currentPage"
+							:length="list.paginate.lastPage"
+							:total-visible="7"></v-pagination>
+					</div>
+				</template>
+				<template v-slot:no-data>
+					<p class="no-data-text">Maaf, tidak ada data tersedia.</p>
+				</template>
+			</v-data-table>
+		</div>
+	</v-sheet>
 </template>
 
 <script>
@@ -205,5 +215,9 @@ export default {
 
 .v-select .v-select__selection-text {
 	font-size: 0.8rem;
+}
+
+.textfield--search {
+	font-size: 12px !important;
 }
 </style>
