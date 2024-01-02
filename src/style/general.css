@@ -135,6 +135,38 @@ body {
 	font-weight: 400 !important;
 	letter-spacing: -0.05px !important;
 	line-height: 1.2 !important;
-	
+
 	padding: 1rem !important;
+}
+
+.table-chip {
+	font-weight: 700 !important;
+	letter-spacing: -0.1px;
+	justify-content: center;
+	width: 100%;
+}
+
+.red-chip {
+	color: #900a0a !important;
+	background-color: #ffe3e3 !important;
+}
+
+.orange-chip {
+	color: #e28f0a !important;
+	background-color: #fff1da !important;
+}
+
+.green-chip {
+	color: #2e7d32 !important;
+	background-color: #e1faea !important;
+}
+
+.blue-chip {
+	color: #113b98 !important;
+	background-color: #ebf0fb !important;
+}
+
+.light-blue-chip {
+	color: #5965db !important;
+	background-color: #ebedfb !important;
 }

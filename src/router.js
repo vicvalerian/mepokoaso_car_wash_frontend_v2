@@ -32,6 +32,10 @@ const routes = [
 				path: '/jabatan',
 				component: importPage('jabatan/ListJabatan'),
 			},
+			{
+				path: '/karyawan',
+				component: importPage('karyawan/ListKaryawan'),
+			},
 		],
 	},
 	{

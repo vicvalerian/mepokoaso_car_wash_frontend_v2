@@ -160,7 +160,6 @@ export default {
 			}
 		},
 		setRowPerPage(val = 10) {
-			console.log(val);
 			let url = `api/jabatan?per_page=${val}&page=1`;
 			this.fetchDataFromServer(url);
 		},
@@ -180,10 +179,8 @@ export default {
 		handleActionClick({ action, item }) {
 			switch (action.title) {
 				case 'Ubah':
-					this.resetForm;
+					this.resetForm();
 					this.formTitle = 'Ubah';
-					this.form.uuid = item.uuid;
-					this.form.id = item.id;
 					this.form.nama = item.nama;
 					this.editId = item.uuid;
 					this.dialogAddEdit = true;

@@ -39,6 +39,7 @@ export default {
 			links: [
 				{ title: 'Dashboard', to: '/dashboard', icon: 'mdi-dots-grid' },
 				{ title: 'Jabatan', to: '/jabatan', icon: 'mdi-badge-account-horizontal-outline' },
+				{ title: 'Karyawan', to: '/karyawan', icon: 'mdi-account-group' },
 			],
 		};
 	},

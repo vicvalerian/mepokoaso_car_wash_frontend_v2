@@ -29,6 +29,7 @@
 					v-slot:[`item.${header.value}`]="{ item }">
 					<td>
 						<template v-if="header.type == 'number'">
+							<!-- Conditional rendering for index columns -->
 							{{
 								list.datas.indexOf(item) +
 								1 +
@@ -39,11 +40,29 @@
 							<!-- Conditional rendering for image columns -->
 							<img
 								v-if="item[header.value]"
-								:src="item[header.value]"
-								alt="Image"
+								:src="baseUrl + item[header.value]"
+								alt="Foto Mepokoaso CarWash"
 								width="50"
-								height="50" />
-							<span v-else>No Image</span>
+								height="50"
+								style="object-fit: cover; margin-top: 0.5rem; margin-bottom: 0.5rem" />
+							<span v-else>Tidak Ada Gambar</span>
+						</template>
+						<template v-else-if="header.type == 'rupiah'">
+							<!-- Conditional rendering for rupiah columns -->
+							<span v-if="item[header.value]">{{ formatRupiah(item[header.value], 'Rp') }}</span>
+							<span v-else>Rp0</span>
+						</template>
+						<template v-else-if="header.type == 'status'">
+							<!-- Conditional rendering for status columns -->
+							<v-chip v-if="item.status === 'Tidak Aktif'" class="table-chip red-chip" label>{{
+								item.status
+							}}</v-chip>
+							<v-chip v-if="item.status === 'Izin'" class="table-chip orange-chip" label>{{
+								item.status
+							}}</v-chip>
+							<v-chip v-if="item.status === 'Aktif'" class="table-chip green-chip" label>{{
+								item.status
+							}}</v-chip>
 						</template>
 						<template v-else-if="header.type == 'actions'">
 							<!-- Conditional rendering for action columns -->
@@ -59,6 +78,10 @@
 									</v-icon>
 								</template>
 							</v-tooltip>
+						</template>
+						<template v-else-if="header.type == 'nested'">
+							<!-- Conditional rendering for columns with nested property -->
+							{{ getNestedProperty(item, header.value.split('.')) }}
 						</template>
 						<template v-else>
 							<!-- Render other column types -->
@@ -153,6 +176,7 @@ export default {
 			rowPerPage: [10, 20, 25, 50, 100],
 			toPage: 0,
 			keyword: '',
+			baseUrl: 'http://127.0.0.1:8000/storage/',
 		};
 	},
 	methods: {
@@ -165,6 +189,25 @@ export default {
 		xSearch() {
 			const query = this.keyword;
 			this.$emit('xSearch', { query });
+		},
+		formatRupiah(value, prefix) {
+			let number_string = value.toString();
+			let split = number_string.split(',');
+			let sisa = split[0].length % 3;
+			let rupiah = split[0].substr(0, sisa);
+			let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+			if (ribuan) {
+				let separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+
+			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+			return prefix == undefined ? rupiah : rupiah ? 'Rp' + rupiah : '';
+		},
+		getNestedProperty(obj, keys) {
+			return keys.reduce((acc, key) => (acc && acc[key] ? acc[key] : ''), obj);
 		},
 	},
 };
