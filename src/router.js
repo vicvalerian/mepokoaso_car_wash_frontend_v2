@@ -40,6 +40,10 @@ const routes = [
 				path: '/jenis-kendaraan',
 				component: importPage('jenis-kendaraan/ListJenisKendaraan'),
 			},
+			{
+				path: '/kendaraan',
+				component: importPage('kendaraan/ListKendaraan'),
+			},
 		],
 	},
 	{
