@@ -44,6 +44,10 @@ const routes = [
 				path: '/kendaraan',
 				component: importPage('kendaraan/ListKendaraan'),
 			},
+			{
+				path: '/mobil-pelanggan',
+				component: importPage('mobil-pelanggan/ListMobilPelanggan'),
+			},
 		],
 	},
 	{
