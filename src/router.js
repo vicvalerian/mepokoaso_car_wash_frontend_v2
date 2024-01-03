@@ -52,6 +52,10 @@ const routes = [
 				path: '/menu-kedai',
 				component: importPage('menu-kedai/ListMenuKedai'),
 			},
+			{
+				path: '/peminjaman-karyawan',
+				component: importPage('peminjaman-karyawan/ListPeminjamanKaryawan'),
+			},
 		],
 	},
 	{

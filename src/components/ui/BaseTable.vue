@@ -51,6 +51,11 @@
 							<span v-if="item[header.value]">{{ formatRupiah(item[header.value], 'Rp') }}</span>
 							<span v-else>Rp0</span>
 						</template>
+						<template v-else-if="header.type == 'date'">
+							<!-- Conditional rendering for rupiah columns -->
+							<span v-if="item[header.value]">{{ formatTanggal(item[header.value]) }}</span>
+							<span v-else>Rp0</span>
+						</template>
 						<template v-else-if="header.type == 'status'">
 							<!-- Conditional rendering for status columns -->
 							<v-chip v-if="item.status === 'Tidak Aktif'" class="table-chip red-chip" label>{{
@@ -207,6 +212,11 @@ export default {
 		},
 		getNestedProperty(obj, keys) {
 			return keys.reduce((acc, key) => (acc && acc[key] ? acc[key] : ''), obj);
+		},
+		formatTanggal(dateString) {
+			const options = { day: 'numeric', month: 'long', year: 'numeric' };
+			const date = new Date(dateString);
+			return date.toLocaleDateString('id-ID', options);
 		},
 	},
 };
