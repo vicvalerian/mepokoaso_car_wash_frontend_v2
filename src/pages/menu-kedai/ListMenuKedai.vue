@@ -2,7 +2,7 @@
 	<v-main>
 		<div class="pages--container">
 			<div class="page-title-container mb-4">
-				<h1 class="pages--title">Jenis Kendaraan</h1>
+				<h1 class="pages--title">Menu Kedai</h1>
 				<v-btn rounded="sm" elevation="0" class="primary--btn" @click="dialogAddEdit = true">
 					Tambah Data
 				</v-btn>
@@ -19,36 +19,68 @@
 			<v-dialog v-model="dialogAddEdit" persistent max-width="600px">
 				<v-card>
 					<v-card-title class="dialog-confirm-title">
-						<span class="headline white--text">{{ formTitle }} Data Jenis Kendaraan</span>
+						<span class="headline white--text">{{ formTitle }} Data Menu Kedai</span>
 					</v-card-title>
 					<v-card-text class="dialog-confirm-text">
 						<v-container v-if="formTitle == 'Tambah'">
+							<v-select
+								:items="jenis_makanan_list"
+								v-model="form.jenis"
+								label="Jenis Menu"
+								item-value="id"
+								item-title="nama"
+								variant="underlined"
+								required></v-select>
 							<v-text-field
 								v-model="form.nama"
-								label="Nama Jenis Kendaraan"
-								required
-								variant="underlined"></v-text-field>
-							<v-file-input
-								append-icon="mdi-camera"
-								accept="image/*"
-								label="Logo Jenis Kendaraan"
-								id="logoJenisKendaraan"
-								ref="fileJenisKendaraan"
-								variant="underlined"></v-file-input>
+								label="Nama Menu"
+								variant="underlined"
+								required></v-text-field>
+							<v-text-field
+								v-model="form.harga"
+								label="Harga Menu"
+								variant="underlined"
+								required></v-text-field>
+							<v-text-field
+								v-model="form.stok"
+								label="Stok Menu"
+								variant="underlined"
+								required></v-text-field>
+							<v-select
+								:items="fieldBolean"
+								label="Memiliki Stok"
+								variant="underlined"
+								v-model="form.is_stok"></v-select>
 						</v-container>
 						<v-container v-else>
+							<v-select
+								:items="jenis_makanan_list"
+								v-model="form.jenis"
+								label="Jenis Menu"
+								item-value="id"
+								item-title="nama"
+								variant="underlined"
+								required></v-select>
 							<v-text-field
 								v-model="form.nama"
-								label="Nama Jenis Kendaraan"
-								required
-								variant="underlined"></v-text-field>
-							<v-file-input
-								append-icon="mdi-camera"
-								accept="image/*"
-								label="Logo Jenis Kendaraan"
-								id="logoJenisKendaraan"
-								ref="fileJenisKendaraan"
-								variant="underlined"></v-file-input>
+								label="Nama Menu"
+								variant="underlined"
+								required></v-text-field>
+							<v-text-field
+								v-model="form.harga"
+								label="Harga Menu"
+								variant="underlined"
+								required></v-text-field>
+							<v-text-field
+								v-model="form.stok"
+								label="Stok Menu"
+								variant="underlined"
+								required></v-text-field>
+							<v-select
+								:items="fieldBolean"
+								label="Memiliki Stok"
+								variant="underlined"
+								v-model="form.is_stok"></v-select>
 						</v-container>
 					</v-card-text>
 					<v-card-actions>
@@ -66,10 +98,10 @@
 			<v-dialog v-model="dialogDelete" persistent max-width="400px">
 				<v-card>
 					<v-card-title class="dialog-confirm-title">
-						<span class="headline white--text">Hapus Data Jenis Kendaraan</span>
+						<span class="headline white--text">Hapus Data Menu Kedai</span>
 					</v-card-title>
 					<v-card-text class="dialog-confirm-text">
-						<span>Apakah Anda yakin ingin menghapus data jenis kendaraan ini?</span>
+						<span>Apakah Anda yakin ingin menghapus data menu kedai ini?</span>
 					</v-card-text>
 					<v-card-actions>
 						<v-spacer></v-spacer>
@@ -100,8 +132,10 @@ export default {
 			list: {
 				headers: [
 					{ title: 'No', value: 'nomor', width: '5%', type: 'number' },
+					{ title: 'Jenis', value: 'jenis', sortable: true },
 					{ title: 'Nama', value: 'nama', sortable: true },
-					{ title: 'Logo', value: 'logo', sortable: false, type: 'image' },
+					{ title: 'Harga', value: 'harga', sortable: true, type: 'rupiah' },
+					{ title: 'Stok', value: 'stok', sortable: true },
 					{ title: 'Aksi', value: 'actions', type: 'actions', sortable: false, width: '30%' },
 				],
 				datas: [],
@@ -111,11 +145,15 @@ export default {
 					currentPage: 1,
 				},
 			},
-			jenisKendaraan: new FormData(),
+			menuKedai: new FormData(),
 			editId: '',
 			deleteId: '',
 			form: {
 				nama: '',
+				harga: '',
+				jenis: '',
+				stok: '',
+				is_stok: '',
 			},
 			dialogAddEdit: false,
 			dialogDelete: false,
@@ -125,18 +163,25 @@ export default {
 				color: '',
 			},
 			btnLoading: false,
+			fieldBolean: [
+				{ title: 'Ya', value: 1 },
+				{ title: 'Tidak', value: 0 },
+			],
+			jenis_makanan_list: ['Makanan', 'Minuman'],
 		};
 	},
 	created() {
-		let url = `api/jenis-kendaraan?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}`;
+		let url = `api/menu-kedai?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}`;
 		this.fetchDataFromServer(url);
 	},
 	methods: {
 		resetForm() {
 			this.formTitle = 'Tambah';
-			this.form.uuid = '';
-			this.form.id = '';
 			this.form.nama = '';
+			this.form.harga = '';
+			this.form.is_stok = '';
+			this.form.jenis = '';
+			this.form.stok = '';
 		},
 		async fetchDataFromServer(url) {
 			this.list.loading = true;
@@ -173,11 +218,11 @@ export default {
 			}
 		},
 		setRowPerPage(val = 10) {
-			let url = `api/jenis-kendaraan?per_page=${val}&page=1`;
+			let url = `api/menu-kedai?per_page=${val}&page=1`;
 			this.fetchDataFromServer(url);
 		},
 		goToPage(val = 0) {
-			let url = `api/jenis-kendaraan?per_page=${this.list.paginate.rowsPerPage}&page=${val}`;
+			let url = `api/menu-kedai?per_page=${this.list.paginate.rowsPerPage}&page=${val}`;
 			this.fetchDataFromServer(url);
 		},
 		addActionsToData(data) {
@@ -195,6 +240,10 @@ export default {
 					this.resetForm();
 					this.formTitle = 'Ubah';
 					this.form.nama = item.nama;
+					this.form.harga = item.harga;
+					this.form.jenis = item.jenis;
+					this.form.stok = item.stok;
+					this.form.is_stok = item.is_stok;
 					this.editId = item.uuid;
 					this.dialogAddEdit = true;
 
@@ -211,7 +260,7 @@ export default {
 		},
 		xSearch({ query }) {
 			if (query.length > 2 || query.length == 0) {
-				let url = `api/jenis-kendaraan?per_page=10&page=1&keyword=${query}`;
+				let url = `api/menu-kedai?per_page=10&page=1&keyword=${query}`;
 				this.fetchDataFromServer(url);
 			} else {
 				this.snackbar.status = true;
@@ -233,18 +282,18 @@ export default {
 			}
 		},
 		async saveData() {
-			this.jenisKendaraan.append('nama', this.form.nama);
-
-			var logo_jenis_kendaraan = document.getElementById('logoJenisKendaraan'),
-				dataLogoJenisKendaraan = logo_jenis_kendaraan.files[0];
-			this.jenisKendaraan.append('logo', dataLogoJenisKendaraan);
+			this.menuKedai.append('nama', this.form.nama);
+			this.menuKedai.append('jenis', this.form.jenis);
+			this.menuKedai.append('harga', this.form.harga);
+			this.menuKedai.append('stok', this.form.stok ? this.form.stok : 0);
+			this.menuKedai.append('is_stok', this.form.is_stok);
 
 			try {
 				const headers = {
 					Authorization: `Bearer ${this.userLogin.token}`,
 				};
 
-				const response = await axios.post('api/jenis-kendaraan', this.jenisKendaraan, { headers });
+				const response = await axios.post('api/menu-kedai', this.menuKedai, { headers });
 				if (response.status == 200) {
 					this.snackbar.message = response.data.message;
 					this.snackbar.color = 'green';
@@ -253,7 +302,7 @@ export default {
 					this.dialogAddEdit = false;
 
 					//fetch new data
-					let url = `api/jenis-kendaraan?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}`;
+					let url = `api/menu-kedai?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}`;
 					this.fetchDataFromServer(url);
 
 					this.resetForm();
@@ -270,20 +319,17 @@ export default {
 		async updateData() {
 			var data = new FormData();
 			data.append('nama', this.form.nama);
-
-			var logo_jenis_kendaraan = document.getElementById('logoJenisKendaraan'),
-				dataLogoJenisKendaraan = logo_jenis_kendaraan.files[0];
-
-			if (dataLogoJenisKendaraan) {
-				data.append('logo', dataLogoJenisKendaraan);
-			}
+			data.append('jenis', this.form.jenis);
+			data.append('harga', this.form.harga);
+			data.append('stok', this.form.stok ? this.form.stok : 0);
+			data.append('is_stok', this.form.is_stok);
 
 			try {
 				const headers = {
 					Authorization: `Bearer ${this.userLogin.token}`,
 				};
 
-				let editUrl = 'api/jenis-kendaraan/' + this.editId;
+				let editUrl = 'api/menu-kedai/' + this.editId;
 				const response = await axios.post(editUrl, data, { headers });
 				if (response.status == 200) {
 					this.snackbar.message = response.data.message;
@@ -293,7 +339,7 @@ export default {
 					this.dialogAddEdit = false;
 
 					//fetch new data
-					let url = `api/jenis-kendaraan?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}`;
+					let url = `api/menu-kedai?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}`;
 					this.fetchDataFromServer(url);
 
 					this.resetForm();
@@ -315,7 +361,7 @@ export default {
 					Authorization: `Bearer ${this.userLogin.token}`,
 				};
 
-				let deleteUrl = 'api/jenis-kendaraan/' + this.deleteId;
+				let deleteUrl = 'api/menu-kedai/' + this.deleteId;
 				const response = await axios.delete(deleteUrl, { headers });
 				if (response.status == 200) {
 					this.snackbar.message = response.data.message;
@@ -325,7 +371,7 @@ export default {
 					this.dialogDelete = false;
 
 					//fetch new data
-					let url = `api/jenis-kendaraan?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}`;
+					let url = `api/menu-kedai?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}`;
 					this.fetchDataFromServer(url);
 
 					this.resetForm();

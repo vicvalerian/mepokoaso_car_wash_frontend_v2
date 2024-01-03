@@ -48,6 +48,10 @@ const routes = [
 				path: '/mobil-pelanggan',
 				component: importPage('mobil-pelanggan/ListMobilPelanggan'),
 			},
+			{
+				path: '/menu-kedai',
+				component: importPage('menu-kedai/ListMenuKedai'),
+			},
 		],
 	},
 	{

@@ -43,6 +43,7 @@ export default {
 				{ title: 'Jenis Kendaraan', to: '/jenis-kendaraan', icon: 'mdi-car-info' },
 				{ title: 'Kendaraan', to: '/kendaraan', icon: 'mdi-car' },
 				{ title: 'Mobil Pelanggan', to: '/mobil-pelanggan', icon: 'mdi-car' },
+				{ title: 'Menu Kedai', to: '/menu-kedai', icon: 'mdi-book-open' },
 			],
 		};
 	},
