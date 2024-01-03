@@ -187,9 +187,12 @@ export default {
 	methods: {
 		resetForm() {
 			this.formTitle = 'Tambah';
-			this.form.uuid = '';
-			this.form.id = '';
 			this.form.nama = '';
+			this.form.jenis_kendaraan_id = '';
+			this.form.nama = '';
+			this.form.harga = '';
+			this.form.foto = '';
+			this.form.tipe = '';
 		},
 
 		async axioJenisKendaraan() {

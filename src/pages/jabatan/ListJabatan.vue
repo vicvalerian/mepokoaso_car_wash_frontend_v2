@@ -100,8 +100,6 @@ export default {
 			editId: '',
 			deleteId: '',
 			form: {
-				uuid: '',
-				id: '',
 				nama: '',
 			},
 			dialogAddEdit: false,
@@ -121,8 +119,6 @@ export default {
 	methods: {
 		resetForm() {
 			this.formTitle = 'Tambah';
-			this.form.uuid = '';
-			this.form.id = '';
 			this.form.nama = '';
 		},
 		async fetchDataFromServer(url) {

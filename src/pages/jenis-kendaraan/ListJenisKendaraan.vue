@@ -134,8 +134,6 @@ export default {
 	methods: {
 		resetForm() {
 			this.formTitle = 'Tambah';
-			this.form.uuid = '';
-			this.form.id = '';
 			this.form.nama = '';
 		},
 		async fetchDataFromServer(url) {
