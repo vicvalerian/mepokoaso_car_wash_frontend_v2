@@ -60,6 +60,10 @@ const routes = [
 				path: '/gaji-karyawan',
 				component: importPage('gaji-karyawan/ListGajiKaryawan'),
 			},
+			{
+				path: '/pengeluaran-kedai',
+				component: importPage('pengeluaran-kedai/ListPengeluaranKedai'),
+			},
 		],
 	},
 	{
