@@ -67,6 +67,18 @@
 							<v-chip v-if="item.status === 'Aktif'" class="table-chip green-chip" label>{{
 								item.status
 							}}</v-chip>
+							<v-chip v-if="item.status === 'Utang'" class="table-chip red-chip" label>{{
+								item.status
+							}}</v-chip>
+							<v-chip
+								v-if="item.status === 'Belum Diterima'"
+								class="table-chip orange-chip"
+								label
+								>{{ item.status }}</v-chip
+							>
+							<v-chip v-if="item.status === 'Sudah Diterima'" class="table-chip green-chip" label>{{
+								item.status
+							}}</v-chip>
 						</template>
 						<template v-else-if="header.type == 'actions'">
 							<!-- Conditional rendering for action columns -->

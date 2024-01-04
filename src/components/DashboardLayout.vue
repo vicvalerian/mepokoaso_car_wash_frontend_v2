@@ -45,6 +45,7 @@ export default {
 				{ title: 'Mobil Pelanggan', to: '/mobil-pelanggan', icon: 'mdi-account-key' },
 				{ title: 'Menu Kedai', to: '/menu-kedai', icon: 'mdi-book-open' },
 				{ title: 'Peminjaman Karyawan', to: '/peminjaman-karyawan', icon: 'mdi-checkbook' },
+				{ title: 'Gaji Karyawan', to: '/gaji-karyawan', icon: 'mdi-cash' },
 			],
 		};
 	},

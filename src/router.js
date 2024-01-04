@@ -56,6 +56,10 @@ const routes = [
 				path: '/peminjaman-karyawan',
 				component: importPage('peminjaman-karyawan/ListPeminjamanKaryawan'),
 			},
+			{
+				path: '/gaji-karyawan',
+				component: importPage('gaji-karyawan/ListGajiKaryawan'),
+			},
 		],
 	},
 	{
