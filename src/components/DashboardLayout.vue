@@ -47,6 +47,7 @@ export default {
 				{ title: 'Peminjaman Karyawan', to: '/peminjaman-karyawan', icon: 'mdi-checkbook' },
 				{ title: 'Gaji Karyawan', to: '/gaji-karyawan', icon: 'mdi-cash' },
 				{ title: 'Pengeluaran Kedai', to: '/pengeluaran-kedai', icon: 'mdi-cart-plus' },
+				{ title: 'Transaksi Kedai', to: '/transaksi-kedai', icon: 'mdi-store' },
 			],
 		};
 	},

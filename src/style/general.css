@@ -86,6 +86,17 @@ body {
 	color: #333;
 }
 
+.pages--subtitle {
+	color: #555;
+	text-transform: capitalize;
+	font-weight: 700;
+	font-size: 1.4rem;
+	letter-spacing: -0.1px;
+
+	margin-top: 1.4rem;
+	margin-bottom: 1rem;
+}
+
 .page-title-container {
 	display: flex;
 	justify-content: space-between;

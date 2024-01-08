@@ -64,6 +64,22 @@ const routes = [
 				path: '/pengeluaran-kedai',
 				component: importPage('pengeluaran-kedai/ListPengeluaranKedai'),
 			},
+			{
+				path: '/transaksi-kedai',
+				component: importPage('transaksi-kedai/ListTransaksiKedai'),
+			},
+			{
+				path: '/transaksi-kedai/tambah',
+				component: importPage('transaksi-kedai/AddTransaksiKedai'),
+			},
+			{
+				path: '/transaksi-kedai/ubah/:id',
+				component: importPage('transaksi-kedai/EditTransaksiKedai'),
+			},
+			{
+				path: '/transaksi-kedai/detail/:id',
+				component: importPage('transaksi-kedai/DetailTransaksiKedai'),
+			},
 		],
 	},
 	{
