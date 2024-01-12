@@ -56,6 +56,15 @@
 							<span v-if="item[header.value]">{{ formatTanggal(item[header.value]) }}</span>
 							<span v-else>Rp0</span>
 						</template>
+						<template v-else-if="header.type == 'boolean'">
+							<!-- Conditional rendering for boolean columns -->
+							<span v-if="item[header.value]">Ya</span>
+							<span v-else>Tidak</span>
+						</template>
+						<template v-else-if="header.type == 'pencuci'">
+							<!-- Conditional rendering for pencuci columns -->
+							<span>{{ getVarName(item[header.value]) }}</span>
+						</template>
 						<template v-else-if="header.type == 'status'">
 							<!-- Conditional rendering for status columns -->
 							<v-chip v-if="item.status === 'Tidak Aktif'" class="table-chip red-chip" label>{{
@@ -77,6 +86,12 @@
 								>{{ item.status }}</v-chip
 							>
 							<v-chip v-if="item.status === 'Sudah Diterima'" class="table-chip green-chip" label>{{
+								item.status
+							}}</v-chip>
+							<v-chip v-if="item.status === 'Belum Bayar'" class="table-chip red-chip" label>{{
+								item.status
+							}}</v-chip>
+							<v-chip v-if="item.status === 'Lunas'" class="table-chip green-chip" label>{{
 								item.status
 							}}</v-chip>
 						</template>
@@ -101,7 +116,10 @@
 						</template>
 						<template v-else>
 							<!-- Render other column types -->
-							{{ item[header.value] }}
+							<span v-if="item[header.value]">
+								{{ item[header.value] }}
+							</span>
+							<span v-else> &mdash; </span>
 						</template>
 					</td>
 				</template>
@@ -229,6 +247,9 @@ export default {
 			const options = { day: 'numeric', month: 'long', year: 'numeric' };
 			const date = new Date(dateString);
 			return date.toLocaleDateString('id-ID', options);
+		},
+		getVarName(items) {
+			return items.map((item) => item.nama).toString();
 		},
 	},
 };

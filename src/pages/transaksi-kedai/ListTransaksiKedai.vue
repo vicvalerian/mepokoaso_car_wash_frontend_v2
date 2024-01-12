@@ -139,7 +139,7 @@ export default {
 					break;
 
 				case 'Ubah':
-				this.$router.push(`transaksi-kedai/ubah/${item.uuid}`);
+					this.$router.push(`transaksi-kedai/ubah/${item.uuid}`);
 					break;
 
 				case 'Hapus':

@@ -80,6 +80,22 @@ const routes = [
 				path: '/transaksi-kedai/detail/:id',
 				component: importPage('transaksi-kedai/DetailTransaksiKedai'),
 			},
+			{
+				path: '/transaksi-pencucian',
+				component: importPage('transaksi-pencucian/ListTransaksiPencucian'),
+			},
+			{
+				path: '/transaksi-pencucian/tambah',
+				component: importPage('transaksi-pencucian/AddTransaksiPencucian'),
+			},
+			{
+				path: '/transaksi-pencucian/ubah/:id',
+				component: importPage('transaksi-pencucian/EditTransaksiPencucian'),
+			},
+			{
+				path: '/transaksi-pencucian/detail/:id',
+				component: importPage('transaksi-pencucian/DetailTransaksiPencucian'),
+			},
 		],
 	},
 	{

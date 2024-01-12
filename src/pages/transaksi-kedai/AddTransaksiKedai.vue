@@ -282,7 +282,7 @@ export default {
 			penjaga_kedai_list: [],
 			menu_kedai_list: [],
 			snackbar: {
-				snackbarNotif: false,
+				status: false,
 				color: '',
 				message: '',
 			},
