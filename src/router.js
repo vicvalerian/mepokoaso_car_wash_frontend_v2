@@ -96,6 +96,10 @@ const routes = [
 				path: '/transaksi-pencucian/detail/:id',
 				component: importPage('transaksi-pencucian/DetailTransaksiPencucian'),
 			},
+			{
+				path: '/pembelanjaan-harian',
+				component: importPage('pembelanjaan-harian/ListPembelanjaanHarian'),
+			},
 		],
 	},
 	{

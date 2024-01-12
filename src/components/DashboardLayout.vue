@@ -49,6 +49,7 @@ export default {
 				{ title: 'Pengeluaran Kedai', to: '/pengeluaran-kedai', icon: 'mdi-cart-plus' },
 				{ title: 'Transaksi Kedai', to: '/transaksi-kedai', icon: 'mdi-store' },
 				{ title: 'Transaksi Pencucian', to: '/transaksi-pencucian', icon: 'mdi-car-wash' },
+				{ title: 'Pembelanjaan Harian', to: '/pembelanjaan-harian', icon: 'mdi-cart-variant' },
 			],
 		};
 	},
