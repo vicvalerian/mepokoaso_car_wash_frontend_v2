@@ -100,6 +100,10 @@ const routes = [
 				path: '/pembelanjaan-harian',
 				component: importPage('pembelanjaan-harian/ListPembelanjaanHarian'),
 			},
+			{
+				path: '/profil',
+				component: importPage('profil/ProfilePage'),
+			},
 		],
 	},
 	{

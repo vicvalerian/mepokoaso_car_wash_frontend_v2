@@ -16,12 +16,42 @@
 				</div>
 			</v-navigation-drawer>
 
-			<v-app-bar :elevation="0" class="appbar">
+			<!-- <v-app-bar :elevation="0" class="appbar">
 				<template v-slot:append>
 					<div class="appbar-avatar">
-						<v-avatar color="surface-variant"></v-avatar>
-						<p class="appbar-username">Vicky Valerian</p>
+						<v-avatar :image="baseUrl + loggedInUser.photo"></v-avatar>
+						<p class="appbar-username">{{ loggedInUser.name }}</p>
 					</div>
+				</template>
+			</v-app-bar> -->
+			<v-app-bar :elevation="0" class="appbar">
+				<template v-slot:append>
+					<v-menu location="bottom" transition="slide-y-transition">
+						<template v-slot:activator="{ props }">
+							<div class="appbar-avatar" v-bind="props">
+								<v-avatar :image="baseUrl + loggedInUser.photo"></v-avatar>
+								<p class="appbar-username">{{ loggedInUser.name }}</p>
+								<v-icon>mdi-menu-down</v-icon>
+							</div>
+						</template>
+
+						<v-list>
+							<div>
+								<v-list-item link class="list-item-container" @click="goToProfile">
+									<div class="link-item">
+										<v-list-item-title class="navbar-item-title"> Profil </v-list-item-title>
+										<v-icon icon="mdi-account" class="link-icon" size="small"></v-icon>
+									</div>
+								</v-list-item>
+								<v-list-item link class="list-item-container">
+									<div class="link-item">
+										<v-list-item-title class="navbar-item-title"> Keluar </v-list-item-title>
+										<v-icon icon="mdi-logout-variant" class="link-icon" size="small"></v-icon>
+									</div>
+								</v-list-item>
+							</div>
+						</v-list>
+					</v-menu>
 				</template>
 			</v-app-bar>
 
@@ -33,9 +63,17 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 	data() {
 		return {
+			userLogin: JSON.parse(localStorage.getItem('userLogin')),
+			loggedInUser: {
+				name: '',
+				photo: '',
+			},
+			baseUrl: 'http://127.0.0.1:8000/storage/',
 			links: [
 				{ title: 'Dashboard', to: '/dashboard', icon: 'mdi-dots-grid' },
 				{ title: 'Jabatan', to: '/jabatan', icon: 'mdi-badge-account-horizontal-outline' },
@@ -52,6 +90,30 @@ export default {
 				{ title: 'Pembelanjaan Harian', to: '/pembelanjaan-harian', icon: 'mdi-cart-variant' },
 			],
 		};
+	},
+	created() {
+		this.getUserLoginInfo();
+	},
+	methods: {
+		async getUserLoginInfo() {
+			try {
+				const headers = {
+					Authorization: `Bearer ${this.userLogin.token}`,
+				};
+
+				const response = await axios.get('api/profil/karyawan', { headers });
+				if (response.status == 200) {
+					this.loggedInUser.name = response.data.data.nama;
+					this.loggedInUser.photo = response.data.data.foto;
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		},
+		goToProfile() {
+			this.$router.push('/profil');
+		},
+		async logout() {},
 	},
 };
 </script>
@@ -104,6 +166,10 @@ export default {
 	column-gap: 1.2rem;
 
 	margin-right: 0.8rem;
+}
+
+.appbar-avatar:hover {
+	cursor: pointer;
 }
 
 .appbar-username {
