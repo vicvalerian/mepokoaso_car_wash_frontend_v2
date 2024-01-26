@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router.js';
 import vuetify from '@/plugins/vuetify';
 import axios from 'axios';
+import VueApexCharts from "vue3-apexcharts";
 
 // local component import
 import BaseSnackbar from './components/ui/BaseSnackbar.vue';
@@ -14,6 +15,7 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 app.use(vuetify);
 app.use(router);
+app.use(VueApexCharts);
 
 app.component('base-snackbar', BaseSnackbar);
 app.component('base-table', BaseTable);
