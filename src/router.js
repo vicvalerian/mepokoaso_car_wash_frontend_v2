@@ -104,6 +104,10 @@ const routes = [
 				path: '/profil',
 				component: importPage('profil/ProfilePage'),
 			},
+			{
+				path: '/laporan',
+				component: importPage('laporan/LaporanPage'),
+			},
 		],
 	},
 	{
