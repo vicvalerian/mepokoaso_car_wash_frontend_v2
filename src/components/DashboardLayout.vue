@@ -72,16 +72,20 @@
 
 						<v-list>
 							<div>
-								<v-list-item link class="list-item-container" @click="goToProfile">
+								<v-list-item link @click="goToProfile">
 									<div class="link-item">
-										<v-list-item-title class="navbar-item-title"> Profil </v-list-item-title>
 										<v-icon icon="mdi-account" class="link-icon" size="small"></v-icon>
+										<v-list-item-title class="navbar-item-title">Profil</v-list-item-title>
 									</div>
 								</v-list-item>
-								<v-list-item link class="list-item-container">
+								<v-divider></v-divider>
+								<v-list-item link>
 									<div class="link-item">
-										<v-list-item-title class="navbar-item-title"> Keluar </v-list-item-title>
-										<v-icon icon="mdi-logout-variant" class="link-icon" size="small"></v-icon>
+										<v-icon
+											icon="mdi-logout-variant"
+											class="link-icon logout"
+											size="small"></v-icon>
+										<v-list-item-title class="navbar-item-title logout">Keluar</v-list-item-title>
 									</div>
 								</v-list-item>
 							</div>
@@ -240,5 +244,9 @@ export default {
 
 .pages-bg {
 	background-color: #eaeff4;
+}
+
+.logout {
+	color: #f03e3e;
 }
 </style>
