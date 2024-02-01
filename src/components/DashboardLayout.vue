@@ -80,7 +80,7 @@
 								</v-list-item>
 								<v-divider></v-divider>
 								<v-list-item link>
-									<div class="link-item">
+									<div class="link-item" @click="logout">
 										<v-icon
 											icon="mdi-logout-variant"
 											class="link-icon logout"
@@ -172,7 +172,22 @@ export default {
 		goToProfile() {
 			this.$router.push('/profil');
 		},
-		async logout() {},
+		async logout() {
+			try {
+				const headers = {
+					Authorization: `Bearer ${this.userLogin.token}`,
+				};
+
+				const response = await axios.get('api/logout', { headers });
+
+				if (response.status == 200) {
+					localStorage.removeItem('userLogin');
+					this.$router.push('/login');
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		},
 	},
 };
 </script>
