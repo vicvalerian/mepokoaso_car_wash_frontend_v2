@@ -48,14 +48,6 @@
 				</v-list>
 			</v-navigation-drawer>
 
-			<!-- <v-app-bar :elevation="0" class="appbar">
-				<template v-slot:append>
-					<div class="appbar-avatar">
-						<v-avatar :image="baseUrl + loggedInUser.photo"></v-avatar>
-						<p class="appbar-username">{{ loggedInUser.name }}</p>
-					</div>
-				</template>
-			</v-app-bar> -->
 			<v-app-bar :elevation="0" class="appbar">
 				<template v-slot:prepend>
 					<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -80,7 +72,7 @@
 								</v-list-item>
 								<v-divider></v-divider>
 								<v-list-item link>
-									<div class="link-item" @click="logout">
+									<div class="link-item" @click="dialogConfirmLogout = true">
 										<v-icon
 											icon="mdi-logout-variant"
 											class="link-icon logout"
@@ -93,6 +85,22 @@
 					</v-menu>
 				</template>
 			</v-app-bar>
+
+			<v-dialog v-model="dialogConfirmLogout" persistent max-width="400px">
+				<v-card>
+					<v-card-title class="dialog-confirm-title">
+						<span class="headline white--text">Keluar Mepokoaso CarWash</span>
+					</v-card-title>
+					<v-card-text class="dialog-confirm-text">
+						<span>Apakah Anda yakin ingin keluar dari Sistem?</span>
+					</v-card-text>
+					<v-card-actions>
+						<v-spacer></v-spacer>
+						<v-btn dense class="secondary--btn" @click="dialogConfirmLogout = false">Batal</v-btn>
+						<v-btn dense class="primary--btn" :loading="btnLoading" @click="logout()">Keluar</v-btn>
+					</v-card-actions>
+				</v-card>
+			</v-dialog>
 
 			<div class="fullheight pages-bg">
 				<router-view></router-view>
@@ -109,6 +117,8 @@ export default {
 		return {
 			userLogin: JSON.parse(localStorage.getItem('userLogin')),
 			drawer: true,
+			dialogConfirmLogout: false,
+			btnLoading: false,
 			loggedInUser: {
 				name: '',
 				photo: '',
@@ -174,6 +184,7 @@ export default {
 		},
 		async logout() {
 			try {
+				this.btnLoading = true;
 				const headers = {
 					Authorization: `Bearer ${this.userLogin.token}`,
 				};
@@ -182,10 +193,12 @@ export default {
 
 				if (response.status == 200) {
 					localStorage.removeItem('userLogin');
+					this.btnLoading = false;
 					this.$router.push('/login');
 				}
 			} catch (error) {
 				console.log(error);
+				this.btnLoading = false;
 			}
 		},
 	},

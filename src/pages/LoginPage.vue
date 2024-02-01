@@ -91,8 +91,10 @@ export default {
 					setTimeout(() => {
 						this.loading = false;
 						this.snackbar.status = true;
-						this.snackbar.message = 'Login Berhasil!';
+						this.snackbar.message = 'Login berhasil! Mengarahkan ke halaman utama';
 						this.snackbar.color = 'green';
+
+						this.$router.push('/dashboard');
 					}, 2500);
 				}
 			} catch (error) {
