@@ -323,7 +323,10 @@ export default {
 
 			var logo_kendaraan = document.getElementById('fotoKendaraan'),
 				dataFotoKendaraan = logo_kendaraan.files[0];
-			this.kendaraan.append('foto', dataFotoKendaraan);
+
+			if (dataFotoKendaraan) {
+				this.kendaraan.append('foto', dataFotoKendaraan);
+			}
 
 			try {
 				const headers = {

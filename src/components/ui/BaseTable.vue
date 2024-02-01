@@ -44,7 +44,12 @@
 								alt="Foto Mepokoaso CarWash"
 								width="50"
 								style="object-fit: cover; margin-top: 0.5rem; margin-bottom: 0.5rem" />
-							<span v-else>Tidak Ada Gambar</span>
+							<img
+								v-else
+								src="../../assets/no_image.png"
+								alt="Tidak Ada Gambar"
+								width="50"
+								style="object-fit: cover; margin-top: 0.5rem; margin-bottom: 0.5rem" />
 						</template>
 						<template v-else-if="header.type == 'rupiah'">
 							<!-- Conditional rendering for rupiah columns -->
