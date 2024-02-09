@@ -112,6 +112,35 @@
 					</div>
 				</v-card-text>
 			</v-card>
+			<v-card elevation="4" class="mb-4">
+				<v-card-text>
+					<div class="report-card-container-v2">
+						<p class="report-card-title">Laporan Pemasukan dan Pengeluaran Harian</p>
+						<div class="report-date-container">
+							<v-text-field
+								type="date"
+								v-model="tglPemasukanPengeluaranHarian"
+								label="Tanggal Mulai"
+								variant="underlined"
+								hide-details
+								required></v-text-field>
+						</div>
+						<v-btn
+							class="primary--btn"
+							:loading="btnLoadingPemasukanPengeluaranHarian"
+							@click="
+								konfirmasiHandler(
+									`pemasukan-pengeluaran-harian?tglMulai=${tglPemasukanPengeluaranHarian}`,
+									'Pemasukan Pengeluaran Harian',
+									tglPemasukanPengeluaranHarian,
+									null
+								)
+							"
+							>Unduh</v-btn
+						>
+					</div>
+				</v-card-text>
+			</v-card>
 
 			<base-snackbar
 				v-model="snackbar.status"
@@ -125,6 +154,16 @@
 .report-card-container {
 	display: grid;
 	grid-template-columns: 2fr 2fr 1fr;
+	column-gap: 4rem;
+
+	align-items: center;
+
+	padding: 8px;
+}
+
+.report-card-container-v2 {
+	display: grid;
+	grid-template-columns: 3fr 1fr 1fr;
 	column-gap: 4rem;
 
 	align-items: center;
@@ -162,9 +201,11 @@ export default {
 			tglSelesaiPendapatanKedai: new Date().toISOString().substr(0, 10),
 			tglMulaiPengeluaranKedai: new Date().toISOString().substr(0, 10),
 			tglSelesaiPengeluaranKedai: new Date().toISOString().substr(0, 10),
+			tglPemasukanPengeluaranHarian: new Date().toISOString().substr(0, 10),
 			btnLoadingPendapatanPencucian: false,
 			btnLoadingPendapatanKedai: false,
 			btnLoadingPengeluaranKedai: false,
+			btnLoadingPemasukanPengeluaranHarian: false,
 			snackbar: {
 				status: false,
 				color: '',
@@ -196,6 +237,10 @@ export default {
 						this.btnLoadingPengeluaranKedai = true;
 						break;
 
+					case 'Pemasukan Pengeluaran Harian':
+						this.btnLoadingPemasukanPengeluaranHarian = true;
+						break;
+
 					default:
 						break;
 				}
@@ -213,7 +258,9 @@ export default {
 					let link = document.createElement('a');
 					link.href = window.URL.createObjectURL(blob);
 					link.download =
-						'Laporan ' + this.documentName + ' ' + dateStart + ' - ' + dateEnd + '.pdf';
+						dateEnd != null
+							? 'Laporan ' + this.documentName + ' ' + dateStart + ' - ' + dateEnd + '.pdf'
+							: 'Laporan ' + this.documentName + ' ' + dateStart + '.pdf';
 					link.click();
 				}
 			} catch (error) {
@@ -227,6 +274,7 @@ export default {
 			this.btnLoadingPendapatanPencucian = false;
 			this.btnLoadingPendapatanKedai = false;
 			this.btnLoadingPengeluaranKedai = false;
+			this.btnLoadingPemasukanPengeluaranHarian = false;
 		},
 	},
 };

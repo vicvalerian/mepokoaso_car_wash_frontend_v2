@@ -349,6 +349,7 @@ export default {
 					this.snackbar.color = 'green';
 					this.snackbar.status = true;
 					this.dialogConfirmUbahStatus = false;
+					this.btnLoading = false;
 
 					let refreshUrl = `api/transaksi-pencucian?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}&status=${this.selected_status}`;
 					this.fetchDataFromServer(refreshUrl);

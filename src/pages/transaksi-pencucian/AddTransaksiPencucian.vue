@@ -173,7 +173,7 @@ export default {
 				jenis_kendaraan: '',
 				tgl_pencucian: new Date().toISOString().substr(0, 10),
 				waktu_pencucian: '',
-				status: 'Belum Bayar',
+				status: 'Lunas',
 				is_save_mobil_pelanggan: false,
 				is_free: false,
 				detail_transaksi_pencuci: [],
