@@ -141,6 +141,47 @@
 					</div>
 				</v-card-text>
 			</v-card>
+			<v-card elevation="4" class="mb-4">
+				<v-card-text>
+					<div class="report-card-container">
+						<p class="report-card-title">Laporan Detail Upah Harian Pencuci</p>
+						<div class="report-date-container">
+							<v-autocomplete
+								:items="karyawan_list"
+								v-model="formUpahHarian.karyawan_id"
+								label="Pilih Karyawan"
+								item-value="id"
+								item-title="nama"
+								variant="underlined"
+								class="fixed-width-field"
+								required></v-autocomplete>
+							<v-select
+								:items="select_bulan"
+								label="Pilih Bulan"
+								variant="underlined"
+								v-model="formUpahHarian.bulan"></v-select>
+							<v-select
+								:items="select_tahun"
+								label="Pilih Tahun"
+								variant="underlined"
+								v-model="formUpahHarian.tahun"></v-select>
+						</div>
+						<v-btn
+							class="primary--btn"
+							:loading="btnLoadingDetailUpahHarian"
+							@click="
+								konfirmasiHandler(
+									`detail-gaji?karyawan_id=${formUpahHarian.karyawan_id}&bulan=${formUpahHarian.bulan}&tahun=${formUpahHarian.tahun}`,
+									`Detail Upah Harian ${formUpahHarian.nama_karyawan}`,
+									null,
+									null
+								)
+							"
+							>Unduh</v-btn
+						>
+					</div>
+				</v-card-text>
+			</v-card>
 
 			<base-snackbar
 				v-model="snackbar.status"
@@ -186,6 +227,10 @@
 	justify-content: center;
 	column-gap: 1rem;
 }
+
+.fixed-width-field {
+	width: 150px;
+}
 </style>
 
 <script>
@@ -206,6 +251,13 @@ export default {
 			btnLoadingPendapatanKedai: false,
 			btnLoadingPengeluaranKedai: false,
 			btnLoadingPemasukanPengeluaranHarian: false,
+			btnLoadingDetailUpahHarian: false,
+			formUpahHarian: {
+				karyawan_id: '',
+				nama_karyawan: '',
+				bulan: new Date().getMonth() + 1,
+				tahun: new Date().getFullYear(),
+			},
 			snackbar: {
 				status: false,
 				color: '',
@@ -213,9 +265,50 @@ export default {
 			},
 			path: '',
 			documentName: '',
+			karyawan_list: [],
+			select_bulan: [
+				{ title: 'Januari', value: 1 },
+				{ title: 'Februari', value: 2 },
+				{ title: 'Maret', value: 3 },
+				{ title: 'April', value: 4 },
+				{ title: 'Mei', value: 5 },
+				{ title: 'Juni', value: 6 },
+				{ title: 'Juli', value: 7 },
+				{ title: 'Agustus', value: 8 },
+				{ title: 'September', value: 9 },
+				{ title: 'Oktober', value: 10 },
+				{ title: 'November', value: 11 },
+				{ title: 'December', value: 12 },
+			],
+			select_tahun: [2022, 2023, 2024, 2025, 2026],
 		};
 	},
+	created() {
+		this.axioKaryawan();
+	},
 	methods: {
+		async axioKaryawan() {
+			try {
+				const headers = {
+					Authorization: `Bearer ${this.userLogin.token}`,
+				};
+
+				let url = 'api/list-selection-karyawan';
+
+				const response = await axios.get(url, { headers });
+				if (response.status == 200) {
+					let data = JSON.parse(JSON.stringify(response.data));
+					data.forEach((item) => {
+						let dashboard = item;
+						dashboard.text = item.nama;
+						dashboard.value = item.id;
+						this.karyawan_list.push(dashboard);
+					});
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		},
 		konfirmasiHandler(path, name, dateStart, dateEnd) {
 			this.path = path;
 			this.documentName = name;
@@ -242,6 +335,7 @@ export default {
 						break;
 
 					default:
+						this.btnLoadingDetailUpahHarian = true;
 						break;
 				}
 
@@ -257,10 +351,17 @@ export default {
 					let blob = new Blob([response.data], { type: 'application/pdf' });
 					let link = document.createElement('a');
 					link.href = window.URL.createObjectURL(blob);
-					link.download =
-						dateEnd != null
-							? 'Laporan ' + this.documentName + ' ' + dateStart + ' - ' + dateEnd + '.pdf'
-							: 'Laporan ' + this.documentName + ' ' + dateStart + '.pdf';
+
+					let download = '';
+					if (dateEnd == null && dateStart == null) {
+						download = 'Laporan ' + this.documentName + '.pdf';
+					} else if (dateEnd != null) {
+						download = 'Laporan ' + this.documentName + ' ' + dateStart + ' - ' + dateEnd + '.pdf';
+					} else {
+						download = 'Laporan ' + this.documentName + ' ' + dateStart + '.pdf';
+					}
+
+					link.download = download;
 					link.click();
 				}
 			} catch (error) {
@@ -275,6 +376,12 @@ export default {
 			this.btnLoadingPendapatanKedai = false;
 			this.btnLoadingPengeluaranKedai = false;
 			this.btnLoadingPemasukanPengeluaranHarian = false;
+		},
+	},
+	watch: {
+		'formUpahHarian.karyawan_id'(val) {
+			let index = this.karyawan_list.findIndex((obj) => obj.id === val);
+			this.formUpahHarian.nama_karyawan = this.karyawan_list[index].nama;
 		},
 	},
 };
