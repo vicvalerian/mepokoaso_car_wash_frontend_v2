@@ -108,6 +108,10 @@ const routes = [
 				path: '/laporan',
 				component: importPage('laporan/LaporanPage'),
 			},
+			{
+				path: '/impor',
+				component: importPage('import/ImportPage'),
+			},
 		],
 	},
 	{

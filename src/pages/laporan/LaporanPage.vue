@@ -376,6 +376,7 @@ export default {
 			this.btnLoadingPendapatanKedai = false;
 			this.btnLoadingPengeluaranKedai = false;
 			this.btnLoadingPemasukanPengeluaranHarian = false;
+			this.btnLoadingDetailUpahHarian = false;
 		},
 	},
 	watch: {

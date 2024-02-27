@@ -157,6 +157,7 @@ export default {
 					],
 				},
 				{ title: 'Laporan', to: '/laporan', icon: 'mdi-file-document-outline' },
+				{ title: 'Impor Dokumen', to: '/impor', icon: 'mdi-import' },
 			],
 		};
 	},
