@@ -280,13 +280,23 @@ export default {
 				{ title: 'November', value: 11 },
 				{ title: 'December', value: 12 },
 			],
-			select_tahun: [2022, 2023, 2024, 2025, 2026],
+			select_tahun: [],
 		};
 	},
 	created() {
 		this.axioKaryawan();
+		this.dynamicYearDropdown();
 	},
 	methods: {
+		dynamicYearDropdown() {
+			let currentYear = new Date().getFullYear();
+			let earliestYear = 2021;
+
+			while (currentYear >= earliestYear) {
+				this.select_tahun.push(currentYear);
+				currentYear -= 1;
+			}
+		},
 		async axioKaryawan() {
 			try {
 				const headers = {

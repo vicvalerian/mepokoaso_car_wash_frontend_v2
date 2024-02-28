@@ -241,7 +241,7 @@ export default {
 				'November',
 				'Desember',
 			],
-			select_tahun: [2022, 2023, 2024, 2025, 2026],
+			select_tahun: [],
 			statuses: ['Utang', 'Belum Diterima', 'Sudah Diterima'],
 		};
 	},
@@ -249,8 +249,18 @@ export default {
 		let url = `api/gaji-karyawan?per_page=${this.list.paginate.rowsPerPage}&page=${this.list.paginate.currentPage}`;
 		this.fetchDataFromServer(url);
 		this.axioKaryawan();
+		this.dynamicYearDropdown();
 	},
 	methods: {
+		dynamicYearDropdown() {
+			let currentYear = new Date().getFullYear();
+			let earliestYear = 2021;
+
+			while (currentYear >= earliestYear) {
+				this.select_tahun.push(currentYear);
+				currentYear -= 1;
+			}
+		},
 		resetForm() {
 			this.formTitle = 'Sync';
 			this.form.karyawan_id = '';

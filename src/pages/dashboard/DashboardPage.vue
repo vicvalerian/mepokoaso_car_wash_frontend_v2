@@ -135,17 +135,7 @@ export default {
 				{ title: 'November', value: 11 },
 				{ title: 'December', value: 12 },
 			],
-			tahun_list: [
-				{ title: '2019', value: 2019 },
-				{ title: '2020', value: 2020 },
-				{ title: '2021', value: 2021 },
-				{ title: '2022', value: 2022 },
-				{ title: '2023', value: 2023 },
-				{ title: '2024', value: 2024 },
-				{ title: '2025', value: 2025 },
-				{ title: '2026', value: 2026 },
-				{ title: '2027', value: 2027 },
-			],
+			tahun_list: [],
 			form: {
 				bulan: new Date().getMonth() + 1,
 				tahun: new Date().getFullYear(),
@@ -226,6 +216,7 @@ export default {
 		};
 	},
 	created() {
+		this.dynamicYearDropdown();
 		this.getSumKaryawan();
 		this.getSumKendaraanThisMonth();
 		this.getSumKendaraanUnpaid();
@@ -235,6 +226,18 @@ export default {
 		this.refreshChart();
 	},
 	methods: {
+		dynamicYearDropdown() {
+			let currentYear = new Date().getFullYear();
+			let earliestYear = 2021;
+
+			while (currentYear >= earliestYear) {
+				let dateOption = {};
+				dateOption.title = currentYear;
+				dateOption.value = currentYear;
+				this.tahun_list.push(dateOption);
+				currentYear -= 1;
+			}
+		},
 		async refreshChart() {
 			this.overlay = true;
 			let urlPencucianChart =
