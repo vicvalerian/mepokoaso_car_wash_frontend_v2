@@ -315,7 +315,7 @@ export default {
 
 				var url = 'api/transaksi-pencucian/nota/' + this.nota.id;
 				const response = await axios.get(url, { headers, responseType: 'arraybuffer' });
-				console.log(response);
+				
 				if (response.status == 200) {
 					let blob = new Blob([response.data], { type: 'application/pdf' });
 					let link = document.createElement('a');

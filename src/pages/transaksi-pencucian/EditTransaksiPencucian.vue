@@ -311,8 +311,6 @@ export default {
 					this.form.detail_transaksi_pencuci.push(d);
 				});
 
-				console.log(this.list.selectedPencuci);
-
 				let data = {
 					kendaraan_id: this.form.kendaraan_id,
 					no_polisi: this.form.no_polisi,

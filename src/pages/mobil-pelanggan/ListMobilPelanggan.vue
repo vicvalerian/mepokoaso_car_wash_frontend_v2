@@ -183,7 +183,6 @@ export default {
 				const response = await axios.get(url, { headers });
 				if (response.status == 200) {
 					this.formDetail.datas = response.data;
-					console.log(response.data);
 				}
 			} catch (error) {
 				console.log(error);
