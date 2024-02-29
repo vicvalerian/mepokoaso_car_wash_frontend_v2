@@ -154,16 +154,19 @@
 								item-title="nama"
 								variant="underlined"
 								class="fixed-width-field"
+								hide-details
 								required></v-autocomplete>
 							<v-select
 								:items="select_bulan"
 								label="Pilih Bulan"
 								variant="underlined"
+								hide-details
 								v-model="formUpahHarian.bulan"></v-select>
 							<v-select
 								:items="select_tahun"
 								label="Pilih Tahun"
 								variant="underlined"
+								hide-details
 								v-model="formUpahHarian.tahun"></v-select>
 						</div>
 						<v-btn
